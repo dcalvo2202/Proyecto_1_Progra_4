@@ -1,4 +1,4 @@
-package com.example.proyecto_1_progra_4;
+package com.example.proyecto_1_progra_4.logic;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

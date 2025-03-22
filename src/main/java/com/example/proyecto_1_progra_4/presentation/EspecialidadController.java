@@ -1,13 +1,10 @@
 package com.example.proyecto_1_progra_4.presentation;
 
-import com.example.proyecto_1_progra_4.Especialidad;
-import com.example.proyecto_1_progra_4.logic.EspecialidadService;
+import com.example.proyecto_1_progra_4.logic.Especialidad;
+import com.example.proyecto_1_progra_4.logic.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -15,19 +12,20 @@ import java.util.Optional;
 public class EspecialidadController {
 
     @Autowired
-    private EspecialidadService especialidadService;
+    private Service service;
 
-@GetMapping
-    public List<Especialidad> listarEspecialidades() {
-    return especialidadService.listarEspecialidades();
-}
+    @GetMapping
+    public Iterable<Especialidad> listarEspecialidades() {
+        return service.listarEspecialidades();
+    }
     @GetMapping("/{id}")
-        public Optional<Especialidad> obtenerEspecialidad(@PathVariable Integer id) {
-return especialidadService.obtenerEspecialidadPorId(id);
-}
+    public Optional<Especialidad> obtenerEspecialidad(@PathVariable Integer id) {
+        return service.obtenerEspecialidadPorId(id);
+    }
 
-@PostMapping
-public Especialidad crearEspecialidad(@RequestBody Especialidad especialidad) {
-return especialidadService.guardarEspecialidad(especialidad);}
+    @PostMapping
+    public Especialidad crearEspecialidad(@RequestBody Especialidad especialidad) {
+        return service.guardarEspecialidad(especialidad);
+    }
 }
 

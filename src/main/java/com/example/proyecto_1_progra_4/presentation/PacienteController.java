@@ -1,36 +1,34 @@
 package com.example.proyecto_1_progra_4.presentation;
 
-import com.example.proyecto_1_progra_4.Paciente;
-import com.example.proyecto_1_progra_4.logic.PacienteService;
+import com.example.proyecto_1_progra_4.logic.Paciente;
+import com.example.proyecto_1_progra_4.logic.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/medicos")
 public class PacienteController {
 
-    private final PacienteService pacienteService;
+    private final Service service;
 
-    public PacienteController(PacienteService pacienteService) {
-        this.pacienteService = pacienteService;
+    public PacienteController(Service pacienteService) {
+        this.service = pacienteService;
     }
 
     @GetMapping
-    public List<Paciente> listaPacientes() {
-        return pacienteService.obtenerPacientes();
+    public Iterable<Paciente> listaPacientes() {
+        return service.obtenerPacientes();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Paciente> obtenerPaciente(@PathVariable Integer id) {
-        return pacienteService.obtenerPacientePorId(id)
+        return service.obtenerPacientePorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public Paciente registrarPaciente(@RequestBody Paciente paciente) {
-        return pacienteService.guardarPaciente(paciente);
+        return service.guardarPaciente(paciente);
     }
 }

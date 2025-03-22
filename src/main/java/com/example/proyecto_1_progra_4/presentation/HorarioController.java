@@ -1,8 +1,7 @@
 package com.example.proyecto_1_progra_4.presentation;
 
-import com.example.proyecto_1_progra_4.Horario;
-import com.example.proyecto_1_progra_4.logic.HorarioService;
-import org.springframework.http.ResponseEntity;
+import com.example.proyecto_1_progra_4.logic.Horario;
+import com.example.proyecto_1_progra_4.logic.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,32 +13,32 @@ import java.util.Optional;
 public class HorarioController {
 
     @Autowired
-    private HorarioService horarioService;
+    private Service service;
 
     @GetMapping
-    public List<Horario> listarHorarios() {
-        return horarioService.listarHorarios();
+    public Iterable<Horario> listarHorarios() {
+        return service.listarHorarios();
     }
 
     @GetMapping("/{id}")
     public Optional<Horario> obtenerHorario(@PathVariable Integer id) {
-        return horarioService.obtenerHorarioPorId(id);
+        return service.obtenerHorarioPorId(id);
     }
 
 
     @GetMapping("/dia/{diaSemana}")
     public List<Horario> obtenerHorariosPorDia(@PathVariable String diaSemana) {
-        return horarioService.obtenerHorariosPorDiaSemana(diaSemana);
+        return service.obtenerHorariosPorDiaSemana(diaSemana);
     }
 
     @PostMapping
     public Horario crearHorario(@RequestBody Horario horario) {
-        return horarioService.guardarHorario(horario);
+        return service.guardarHorario(horario);
     }
 
     @DeleteMapping("/{id}")
     public void eliminarHorario(@PathVariable Integer id) {
-        horarioService.eliminarHorario(id);
+        service.eliminarHorario(id);
     }
 }
 

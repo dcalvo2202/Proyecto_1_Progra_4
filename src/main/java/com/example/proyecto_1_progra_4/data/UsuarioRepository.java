@@ -1,12 +1,10 @@
 package com.example.proyecto_1_progra_4.data;
 
-import com.example.proyecto_1_progra_4.Usuario;
+import com.example.proyecto_1_progra_4.logic.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-    Optional<Usuario> findById(Integer id);
+public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
 }

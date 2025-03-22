@@ -1,13 +1,10 @@
 package com.example.proyecto_1_progra_4.data;
 
 
-import com.example.proyecto_1_progra_4.Especialidad;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.proyecto_1_progra_4.logic.Especialidad;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface EspecialidadRepository extends JpaRepository<Especialidad, Integer> {
-Optional<Especialidad> findByNombre(String nombre);
+public interface EspecialidadRepository extends CrudRepository<Especialidad, Integer> {
 }

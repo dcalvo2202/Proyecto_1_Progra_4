@@ -1,12 +1,12 @@
-package com.example.proyecto_1_progra_4;
+package com.example.proyecto_1_progra_4.logic;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "especialidades")
-public class Especialidad {
+@Table(name = "ciudades")
+public class Ciudad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -17,9 +17,10 @@ public class Especialidad {
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
+    @NotNull
     @Lob
-    @Column(name = "descripcion")
-    private String descripcion;
+    @Column(name = "provincia", nullable = false)
+    private String provincia;
 
     public Integer getId() {
         return id;
@@ -37,12 +38,12 @@ public class Especialidad {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getProvincia() {
+        return provincia;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
     }
 
 }
