@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
@@ -33,7 +34,7 @@ public class Medico {
     private Ciudad ciudad;
 
     @Size(max = 50)
-    @NotNull
+    @NotBlank
     @Column(name = "clinica", nullable = false, length = 50)
     private String clinica;
 

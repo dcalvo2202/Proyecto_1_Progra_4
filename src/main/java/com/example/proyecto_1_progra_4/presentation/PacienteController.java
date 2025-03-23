@@ -4,13 +4,16 @@ import com.example.proyecto_1_progra_4.logic.Paciente;
 import com.example.proyecto_1_progra_4.logic.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 
 @RestController
-@RequestMapping("/medicos")
+@RequestMapping("/pacientes")
 public class PacienteController {
 
     private final Service service;
 
+    
     public PacienteController(Service pacienteService) {
         this.service = pacienteService;
     }

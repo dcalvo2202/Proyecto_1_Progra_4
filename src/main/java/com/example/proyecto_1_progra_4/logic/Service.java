@@ -7,6 +7,7 @@ import com.example.proyecto_1_progra_4.data.MedicoRepository;
 import com.example.proyecto_1_progra_4.data.PacienteRepository;
 import com.example.proyecto_1_progra_4.data.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -104,6 +105,16 @@ public class Service {
         return medicoRepository.save(medico);
     }
 
+    // Registro de Medico
+    @Transactional
+    public Medico registrarMedico(Usuario usuario, Medico medico) {
+        Usuario usuarioGuardado = usuarioRepository.save(usuario);
+        medico.setId(usuarioGuardado.getId());
+        medico.setUsuarios(usuarioGuardado);
+        medico.setEstado("PENDIENTE");
+        return medicoRepository.save(medico);
+    }
+
     //Pacientes
     public Iterable<Paciente> obtenerPacientes() {
         return pacienteRepository.findAll();
@@ -117,6 +128,14 @@ public class Service {
         return pacienteRepository.save(paciente);
     }
 
+    //Registro de paciente
+    @Transactional
+    public Paciente registrarPaciente(Usuario usuario, Paciente paciente) {
+        Usuario usuarioGuardado = usuarioRepository.save(usuario);
+        paciente.setId(usuarioGuardado.getId());
+        paciente.setUsuarios(usuarioGuardado);
+        return pacienteRepository.save(paciente);
+    }
     //Usuarios
     public Iterable<Usuario> obtenerUsuarios() {
         return usuarioRepository.findAll();
@@ -128,5 +147,16 @@ public class Service {
 
     public Usuario guardarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
+    }
+
+    // Aprobación de Medico
+    public Optional<Medico> aprobarMedico(Integer id) {
+        Optional<Medico> medicoOptional = medicoRepository.findById(id);
+        if (medicoOptional.isPresent()) {
+            Medico medico = medicoOptional.get();
+            medico.setEstado("APROBADO");
+            return Optional.of(medicoRepository.save(medico));
+        }
+        return Optional.empty();
     }
 }

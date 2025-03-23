@@ -1,8 +1,10 @@
 package com.example.proyecto_1_progra_4.logic;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -15,22 +17,23 @@ public class Usuario {
     private Integer id;
 
     @Size(max = 50)
-    @NotNull
+    @NotBlank
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
     @Size(max = 50)
-    @NotNull
+    @NotBlank
     @Column(name = "apellido", nullable = false, length = 50)
     private String apellido;
 
     @Size(max = 100)
-    @NotNull
+    @NotBlank
+    @Email
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Size(max = 255)
-    @NotNull
+    @Size(min = 8,max = 255)
+    @NotBlank
     @Column(name = "clave", nullable = false)
     private String clave;
 
