@@ -8,8 +8,8 @@ import org.hibernate.Hibernate;
 import java.util.Objects;
 
 @Embeddable
-public class PermisoPerfilId implements java.io.Serializable {
-    private static final long serialVersionUID = -3953099716544743389L;
+public class PermisosPerfilId implements java.io.Serializable {
+    private static final long serialVersionUID = 709086256712390925L;
     @NotNull
     @Column(name = "perfil_id", nullable = false)
     private Integer perfilId;
@@ -38,7 +38,7 @@ public class PermisoPerfilId implements java.io.Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        PermisoPerfilId entity = (PermisoPerfilId) o;
+        PermisosPerfilId entity = (PermisosPerfilId) o;
         return Objects.equals(this.perfilId, entity.perfilId) &&
                 Objects.equals(this.permisoId, entity.permisoId);
     }

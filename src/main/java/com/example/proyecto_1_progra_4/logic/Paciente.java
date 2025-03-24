@@ -1,8 +1,11 @@
 package com.example.proyecto_1_progra_4.logic;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "pacientes")
@@ -11,11 +14,15 @@ public class Paciente {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "id", nullable = false)
-    private Usuario usuarios;
+    @Size(max = 50)
+    @NotNull
+    @Column(name = "nombre", nullable = false, length = 50)
+    private String nombre;
+
+    @Size(max = 50)
+    @NotNull
+    @Column(name = "apellido", nullable = false, length = 50)
+    private String apellido;
 
     public Integer getId() {
         return id;
@@ -25,12 +32,20 @@ public class Paciente {
         this.id = id;
     }
 
-    public Usuario getUsuarios() {
-        return usuarios;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setUsuarios(Usuario usuarios) {
-        this.usuarios = usuarios;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
 }

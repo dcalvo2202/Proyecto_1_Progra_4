@@ -32,10 +32,23 @@ public class MedicoController {
         return service.guardarMedico(medico);
     }
 
-//    @PutMapping("/{id}/aprobar")
-//    public ResponseEntity<Medico> aprobarMedico(@PathVariable Integer id) {
-//        return medicoService.aprobarMedico(id)
-//                .map(ResponseEntity::ok)
-//                .orElse(ResponseEntity.notFound().build());
-//    }
+    @PutMapping("/{id}/perfil")
+    public ResponseEntity<Medico> actualizarPerfil(@PathVariable Integer id, @RequestBody Medico medicoActualizado) {
+        return service.obtenerMedicoPorId(id)
+                .map(medico -> {
+                    medico.setEspecialidad(medicoActualizado.getEspecialidad());
+                    medico.setCiudad(medicoActualizado.getCiudad());
+                    medico.setClinica(medicoActualizado.getClinica());
+                    medico.setFrecuencia(medicoActualizado.getFrecuencia());
+                    medico.setRutaFoto(medicoActualizado.getRutaFoto());
+                    return ResponseEntity.ok(service.guardarMedico(medico));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/primera-vez")
+    public ResponseEntity<Boolean> esPrimeraVez(@PathVariable Integer id) {
+        boolean primeraVez = service.esPrimeraVezMedico(id);
+        return ResponseEntity.ok(primeraVez);
+    }
 }

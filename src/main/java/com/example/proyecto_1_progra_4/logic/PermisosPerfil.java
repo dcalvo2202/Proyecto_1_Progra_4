@@ -6,15 +6,15 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "permisos_perfil")
-public class PermisoPerfil {
+public class PermisosPerfil {
     @EmbeddedId
-    private PermisoPerfilId id;
+    private PermisosPerfilId id;
 
     @MapsId("perfilId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "perfil_id", nullable = false)
-    private Perfil perfil;
+    private Perfile perfil;
 
     @MapsId("permisoId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -22,19 +22,19 @@ public class PermisoPerfil {
     @JoinColumn(name = "permiso_id", nullable = false)
     private Permiso permiso;
 
-    public PermisoPerfilId getId() {
+    public PermisosPerfilId getId() {
         return id;
     }
 
-    public void setId(PermisoPerfilId id) {
+    public void setId(PermisosPerfilId id) {
         this.id = id;
     }
 
-    public Perfil getPerfil() {
+    public Perfile getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(Perfil perfil) {
+    public void setPerfil(Perfile perfil) {
         this.perfil = perfil;
     }
 

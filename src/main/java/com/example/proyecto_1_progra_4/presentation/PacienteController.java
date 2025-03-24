@@ -4,8 +4,6 @@ import com.example.proyecto_1_progra_4.logic.Paciente;
 import com.example.proyecto_1_progra_4.logic.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
-import org.springframework.validation.BindingResult;
 
 @RestController
 @RequestMapping("/pacientes")

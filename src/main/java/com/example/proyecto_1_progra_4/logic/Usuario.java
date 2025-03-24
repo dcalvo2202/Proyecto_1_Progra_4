@@ -1,10 +1,9 @@
 package com.example.proyecto_1_progra_4.logic;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.NotBlank;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -17,23 +16,22 @@ public class Usuario {
     private Integer id;
 
     @Size(max = 50)
-    @NotBlank
+    @NotNull
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
     @Size(max = 50)
-    @NotBlank
+    @NotNull
     @Column(name = "apellido", nullable = false, length = 50)
     private String apellido;
 
     @Size(max = 100)
-    @NotBlank
-    @Email
+    @NotNull
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Size(min = 8,max = 255)
-    @NotBlank
+    @Size(max = 255)
+    @NotNull
     @Column(name = "clave", nullable = false)
     private String clave;
 
@@ -41,7 +39,13 @@ public class Usuario {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "perfil_id", nullable = false)
-    private Perfil perfil;
+    private Perfile perfil;
+
+    @NotNull
+    @ColumnDefault("'PENDIENTE'")
+    @Lob
+    @Column(name = "estado", nullable = false)
+    private String estado;
 
     public Integer getId() {
         return id;
@@ -83,12 +87,20 @@ public class Usuario {
         this.clave = clave;
     }
 
-    public Perfil getPerfil() {
+    public Perfile getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(Perfil perfil) {
+    public void setPerfil(Perfile perfil) {
         this.perfil = perfil;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
 }

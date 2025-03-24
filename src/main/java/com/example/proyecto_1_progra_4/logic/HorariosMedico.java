@@ -2,24 +2,16 @@ package com.example.proyecto_1_progra_4.logic;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "horarios_medico")
-public class HorarioMedico {
+@Table(name = "horarios_medicos")
+public class HorariosMedico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "medico_id", nullable = false)
-    private Medico medico;
 
     @NotNull
     @Lob
@@ -40,14 +32,6 @@ public class HorarioMedico {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Medico getMedico() {
-        return medico;
-    }
-
-    public void setMedico(Medico medico) {
-        this.medico = medico;
     }
 
     public String getDia() {

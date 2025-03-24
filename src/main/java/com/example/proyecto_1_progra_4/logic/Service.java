@@ -1,7 +1,6 @@
 package com.example.proyecto_1_progra_4.logic;
 
 import com.example.proyecto_1_progra_4.data.CitasRepository;
-import com.example.proyecto_1_progra_4.data.EspecialidadRepository;
 import com.example.proyecto_1_progra_4.data.HorarioRepository;
 import com.example.proyecto_1_progra_4.data.MedicoRepository;
 import com.example.proyecto_1_progra_4.data.PacienteRepository;
@@ -17,74 +16,67 @@ public class Service {
 
     @Autowired
     private final CitasRepository citasRepository;
-    private EspecialidadRepository especialidadRepository;
     private HorarioRepository horarioRepository;
     private final MedicoRepository medicoRepository;
     private final PacienteRepository pacienteRepository;
     private final UsuarioRepository usuarioRepository;
 
 
-    public Service (CitasRepository citasRepository, EspecialidadRepository especialidadRepository, HorarioRepository horarioRepository, MedicoRepository medicoRepository, PacienteRepository pacienteRepository, UsuarioRepository usuarioRepository) {
+    public Service (CitasRepository citasRepository, HorarioRepository horarioRepository, MedicoRepository medicoRepository, PacienteRepository pacienteRepository, UsuarioRepository usuarioRepository) {
         this.citasRepository = citasRepository;
-        this.especialidadRepository = especialidadRepository;
         this.horarioRepository = horarioRepository;
         this.medicoRepository = medicoRepository;
         this.pacienteRepository = pacienteRepository;
         this.usuarioRepository = usuarioRepository;
     }
     // Citas
-    public Optional<Citas> obtenerCitaPorId(Integer id) {
+    public Optional<Cita> obtenerCitaPorId(Integer id) {
         return citasRepository.findById(id);
     }
 
-    public Iterable<Citas> obtenerCitas() {
+    public Iterable<Cita> obtenerCitas() {
         return citasRepository.findAll();
     }
 
-    public Citas guardarCita(Citas citas) {
-        return citasRepository.save(citas);
+    public Cita guardarCita(Cita cita) {
+        return citasRepository.save(cita);
     }
 
-    //Especialidades
-    public Iterable<Especialidad> listarEspecialidades() {
-        return especialidadRepository.findAll();
+    public List<Cita> listarCitasPorMedico(Integer medicoId) {
+        return citasRepository.findByMedicoIdOrderByFechaDescHoraDesc(medicoId);
     }
 
-    public Optional<Especialidad> obtenerEspecialidadPorId(Integer id) {
-        return especialidadRepository.findById(id);
+    public List<Cita> filtrarCitasPorEstado(Integer medicoId, String estado) {
+        return citasRepository.findByMedicoIdAndEstadoOrderByFechaDescHoraDesc(medicoId, estado);
     }
 
-    public Optional<Especialidad> obtenerEspecialidadPorNombre(Integer id) {
-        return especialidadRepository.findById(id);
+    public List<Cita> filtrarCitasPorNombrePaciente(Integer medicoId, String nombrePaciente) {
+        return citasRepository.findByMedicoIdAndPacienteNombreContainingIgnoreCaseOrderByFechaDescHoraDesc(medicoId, nombrePaciente);
     }
 
-    public Especialidad guardarEspecialidad(Especialidad especialidad) {
-        return especialidadRepository.save(especialidad);
-    }
-
-    public void eliminarEspecialidad(Integer id) {
-        especialidadRepository.deleteById(id);
+    public List<Cita> filtrarCitasPorEstadoYNombre(Integer medicoId, String estado, String nombrePaciente) {
+        return citasRepository.findByMedicoIdAndEstadoAndPacienteNombreContainingIgnoreCaseOrderByFechaDescHoraDesc(medicoId, estado, nombrePaciente);
     }
 
     //Horarios
 
-    public Iterable<Horario> listarHorarios() {
+    public Iterable<HorariosMedico> listarHorarios() {
         return horarioRepository.findAll();
     }
 
-    public Optional<Horario> obtenerHorarioPorId(Integer id) {
+    public Optional<HorariosMedico> obtenerHorarioPorId(Integer id) {
         return horarioRepository.findById(id);
     }
 
-    public List<Horario> obtenerHorariosPorMedico(Integer medicoId) {
+    public List<HorariosMedico> obtenerHorariosPorMedico(Integer medicoId) {
         return horarioRepository.findByMedicoId(medicoId);
     }
 
-    public List<Horario> obtenerHorariosPorDiaSemana(String diaSemana) {
+    public List<HorariosMedico> obtenerHorariosPorDiaSemana(String diaSemana) {
         return horarioRepository.findByDiaSemana(diaSemana);
     }
 
-    public Horario guardarHorario(Horario horario) {
+    public HorariosMedico guardarHorario(HorariosMedico horario) {
         return horarioRepository.save(horario);
     }
 
@@ -105,17 +97,36 @@ public class Service {
         return medicoRepository.save(medico);
     }
 
-    // Registro de Medico
     @Transactional
     public Medico registrarMedico(Usuario usuario, Medico medico) {
+        usuario.setEstado("PENDIENTE");
         Usuario usuarioGuardado = usuarioRepository.save(usuario);
         medico.setId(usuarioGuardado.getId());
-        medico.setUsuarios(usuarioGuardado);
-        medico.setEstado("PENDIENTE");
+        medico.setUsuario(usuarioGuardado);
         return medicoRepository.save(medico);
     }
 
-    //Pacientes
+    public Optional<Medico> aprobarMedico(Integer id) {
+        Optional<Medico> medicoOptional = medicoRepository.findById(id);
+        if (medicoOptional.isPresent()) {
+            Medico medico = medicoOptional.get();
+
+            Usuario usuario = usuarioRepository.findById(medico.getId()).orElse(null);
+            if (usuario != null) {
+                usuario.setEstado("APROBADO");
+                usuarioRepository.save(usuario);
+            }
+
+            return Optional.of(medico);
+        }
+        return Optional.empty();
+    }
+
+    public boolean esPrimeraVezMedico(Integer medicoId) {
+        return !citasRepository.existsByMedicoIdAndEstado(medicoId, "PENDIENTE");
+    }
+
+    // Pacientes
     public Iterable<Paciente> obtenerPacientes() {
         return pacienteRepository.findAll();
     }
@@ -149,13 +160,15 @@ public class Service {
         return usuarioRepository.save(usuario);
     }
 
-    // Aprobación de Medico
-    public Optional<Medico> aprobarMedico(Integer id) {
-        Optional<Medico> medicoOptional = medicoRepository.findById(id);
-        if (medicoOptional.isPresent()) {
-            Medico medico = medicoOptional.get();
-            medico.setEstado("APROBADO");
-            return Optional.of(medicoRepository.save(medico));
+    // Login
+    public Optional<Usuario> login(Integer id, String clave) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
+        if (usuarioOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+
+            if (usuario.getClave().equals(clave) && usuario.getEstado().equals("APROBADO")) {
+                return Optional.of(usuario);
+            }
         }
         return Optional.empty();
     }
