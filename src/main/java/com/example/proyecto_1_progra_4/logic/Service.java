@@ -3,7 +3,6 @@ package com.example.proyecto_1_progra_4.logic;
 import com.example.proyecto_1_progra_4.data.CitasRepository;
 import com.example.proyecto_1_progra_4.data.HorarioRepository;
 import com.example.proyecto_1_progra_4.data.MedicoRepository;
-import com.example.proyecto_1_progra_4.data.PacienteRepository;
 import com.example.proyecto_1_progra_4.data.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,15 +17,13 @@ public class Service {
     private final CitasRepository citasRepository;
     private HorarioRepository horarioRepository;
     private final MedicoRepository medicoRepository;
-    private final PacienteRepository pacienteRepository;
     private final UsuarioRepository usuarioRepository;
 
 
-    public Service (CitasRepository citasRepository, HorarioRepository horarioRepository, MedicoRepository medicoRepository, PacienteRepository pacienteRepository, UsuarioRepository usuarioRepository) {
+    public Service (CitasRepository citasRepository, HorarioRepository horarioRepository, MedicoRepository medicoRepository, UsuarioRepository usuarioRepository) {
         this.citasRepository = citasRepository;
         this.horarioRepository = horarioRepository;
         this.medicoRepository = medicoRepository;
-        this.pacienteRepository = pacienteRepository;
         this.usuarioRepository = usuarioRepository;
     }
     // Citas
@@ -126,27 +123,6 @@ public class Service {
         return !citasRepository.existsByMedicoIdAndEstado(medicoId, "PENDIENTE");
     }
 
-    // Pacientes
-    public Iterable<Paciente> obtenerPacientes() {
-        return pacienteRepository.findAll();
-    }
-
-    public Optional<Paciente> obtenerPacientePorId(Integer id) {
-        return pacienteRepository.findById(id);
-    }
-
-    public Paciente guardarPaciente(Paciente paciente) {
-        return pacienteRepository.save(paciente);
-    }
-
-    //Registro de paciente
-    @Transactional
-    public Paciente registrarPaciente(Usuario usuario, Paciente paciente) {
-        Usuario usuarioGuardado = usuarioRepository.save(usuario);
-        paciente.setId(usuarioGuardado.getId());
-        paciente.setUsuarios(usuarioGuardado);
-        return pacienteRepository.save(paciente);
-    }
     //Usuarios
     public Iterable<Usuario> obtenerUsuarios() {
         return usuarioRepository.findAll();

@@ -26,7 +26,7 @@ public class Cita {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "paciente_id", nullable = false)
-    private Paciente paciente;
+    private Usuario paciente;
 
     @NotNull
     @Column(name = "fecha", nullable = false)
@@ -61,11 +61,11 @@ public class Cita {
         this.medico = medico;
     }
 
-    public Paciente getPaciente() {
+    public Usuario getPaciente() {
         return paciente;
     }
 
-    public void setPaciente(Paciente paciente) {
+    public void setPaciente(Usuario paciente) {
         this.paciente = paciente;
     }
 

@@ -1,6 +1,9 @@
 CREATE DATABASE proyecto1;
 USE proyecto1;
 
+DROP TABLE IF EXISTS pacientes;
+DROP TABLE IF EXISTS citas;
+
 CREATE TABLE perfiles (
     id INT PRIMARY KEY,
     nombre VARCHAR(20) UNIQUE NOT NULL -- 'PACIENTE', 'MEDICO', 'ADMIN'
@@ -30,13 +33,6 @@ CREATE TABLE usuarios (
     FOREIGN KEY (perfil_id) REFERENCES perfiles(id) ON DELETE CASCADE
 );
 
-CREATE TABLE pacientes (
-	id INT PRIMARY KEY,
-    nombre VARCHAR (50) NOT NULL,
-	apellido VARCHAR(50) NOT NULL,
-    FOREIGN KEY (id) REFERENCES usuarios(id) ON DELETE CASCADE
-);
-
 CREATE TABLE medicos (
     id INT PRIMARY KEY, -- ID coincide con el de usuarios
     nombre VARCHAR (50) NOT NULL,
@@ -45,7 +41,7 @@ CREATE TABLE medicos (
     ciudad VARCHAR(20) NOT NULL,
     clinica VARCHAR(50) NOT NULL,
 	frecuencia INT NOT NULL DEFAULT 30,
-    id_horario INT NOT NULL, 
+    id_horario INT NOT NULL,
     FOREIGN KEY (id) REFERENCES usuarios(id) ON DELETE CASCADE,
 	FOREIGN KEY (id_horario) REFERENCES horarios_medicos(id) ON DELETE CASCADE
 );
@@ -68,19 +64,19 @@ CREATE TABLE citas (
     estado ENUM('PENDIENTE', 'ATENDIDA', 'CANCELADA') NOT NULL,
     anotaciones TEXT NULL,
     FOREIGN KEY (medico_id) REFERENCES medicos(id) ON DELETE CASCADE,
-    FOREIGN KEY (paciente_id) REFERENCES pacientes(id) ON DELETE CASCADE
+    FOREIGN KEY (paciente_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
-INSERT INTO perfiles (id, nombre) VALUES 
-(0, 'ANONIMO'), 
+INSERT INTO perfiles (id, nombre) VALUES
+(0, 'ANONIMO'),
 (1, 'ADMIN'),
 (2, 'MEDICO'),
 (3, 'PACIENTE');
 
-INSERT INTO permisos (id, nombre) VALUES 
-(1, 'Login'), 
-(2, 'Aprobar'), 
-(3, 'Registro'), 
+INSERT INTO permisos (id, nombre) VALUES
+(1, 'Login'),
+(2, 'Aprobar'),
+(3, 'Registro'),
 (4, 'Crear cita'),
 (5, 'Buscar cita'),
 (6, 'Horario medico'),
