@@ -1,6 +1,8 @@
 package com.example.proyecto_1_progra_4.logic;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
@@ -14,32 +16,33 @@ public class Medico {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Size(max = 50)
-    @NotNull
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(max = 50, message = "El nombre debe tener como máximo 50 caracteres")
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
-    @Size(max = 50)
-    @NotNull
+    @NotBlank(message = "El apellido no puede estar vacío")
+    @Size(max = 50, message = "El apellido debe tener como máximo 50 caracteres")
     @Column(name = "apellido", nullable = false, length = 50)
     private String apellido;
 
-    @Size(max = 50)
-    @NotNull
+    @NotBlank(message = "La especialidad no puede estar vacía")
+    @Size(max = 50, message = "La especialidad debe tener como máximo 50 caracteres")
     @Column(name = "especialidad", nullable = false, length = 50)
     private String especialidad;
 
-    @Size(max = 20)
-    @NotNull
+    @NotBlank(message = "La ciudad no puede estar vacía")
+    @Size(max = 20, message = "La ciudad debe tener como máximo 20 caracteres")
     @Column(name = "ciudad", nullable = false, length = 20)
     private String ciudad;
 
-    @Size(max = 50)
-    @NotNull
+    @NotBlank(message = "La clínica no puede estar vacía")
+    @Size(max = 50, message = "La clínica debe tener como máximo 50 caracteres")
     @Column(name = "clinica", nullable = false, length = 50)
     private String clinica;
 
-    @NotNull
+    @NotNull(message = "La frecuencia no puede ser nula")
+    @Min(value = 5, message = "La frecuencia debe ser al menos 5")
     @ColumnDefault("30")
     @Column(name = "frecuencia", nullable = false)
     private Integer frecuencia;
@@ -47,7 +50,7 @@ public class Medico {
     @Size(max = 255)
     private String rutaFoto;
 
-    @NotNull
+    @NotNull(message = "El horario no puede ser nulo")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "id_horario", nullable = false)

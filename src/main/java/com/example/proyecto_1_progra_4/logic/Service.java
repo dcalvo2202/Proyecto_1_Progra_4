@@ -5,6 +5,7 @@ import com.example.proyecto_1_progra_4.data.HorarioRepository;
 import com.example.proyecto_1_progra_4.data.MedicoRepository;
 import com.example.proyecto_1_progra_4.data.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -141,8 +142,8 @@ public class Service {
         Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
-
-            if (usuario.getClave().equals(clave) && usuario.getEstado().equals("APROBADO")) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            if (passwordEncoder.matches(clave, usuario.getClave()) && usuario.getEstado().equals("APROBADO")) {
                 return Optional.of(usuario);
             }
         }

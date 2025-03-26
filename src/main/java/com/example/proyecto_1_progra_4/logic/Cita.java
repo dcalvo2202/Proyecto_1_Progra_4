@@ -1,6 +1,7 @@
 package com.example.proyecto_1_progra_4.logic;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -16,27 +17,27 @@ public class Cita {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "El médico no puede ser nulo")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "medico_id", nullable = false)
     private Medico medico;
 
-    @NotNull
+    @NotNull(message = "El paciente no puede ser nulo")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "paciente_id", nullable = false)
     private Usuario paciente;
 
-    @NotNull
+    @NotNull(message = "La fecha no puede ser nula")
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
 
-    @NotNull
+    @NotNull(message = "La hora no puede ser nula")
     @Column(name = "hora", nullable = false)
     private LocalTime hora;
 
-    @NotNull
+    @NotBlank(message = "El estado no puede estar vacío")
     @Lob
     @Column(name = "estado", nullable = false)
     private String estado;

@@ -2,11 +2,14 @@ package com.example.proyecto_1_progra_4.presentation;
 
 import com.example.proyecto_1_progra_4.logic.Cita;
 import com.example.proyecto_1_progra_4.logic.Service;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/citas")
@@ -23,10 +26,19 @@ public class CitasController {
         return service.obtenerCitas();
     }
 
+
     @PostMapping
-    public Cita crearCita(@RequestBody Cita cita) {
-        return service.guardarCita(cita);
+    public ResponseEntity<?> crearCita(@Valid @RequestBody Cita cita, BindingResult result) {
+        if (result.hasErrors()) {
+            List<String> errores = result.getAllErrors()
+                    .stream()
+                    .map(error -> error.getDefaultMessage())
+                    .collect(Collectors.toList());
+            return ResponseEntity.badRequest().body(errores);
+        }
+        return ResponseEntity.ok(service.guardarCita(cita));
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Cita> obtenerCita(@PathVariable Integer id) {

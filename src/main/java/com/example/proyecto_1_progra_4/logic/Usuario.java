@@ -3,6 +3,7 @@ package com.example.proyecto_1_progra_4.logic;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -15,33 +16,34 @@ public class Usuario {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Size(max = 50)
-    @NotNull
+    @Size(min = 3, max = 50, message = "El nombre debe tener entre 3 y 50 caracteres")
+    @NotNull(message = "El nombre no puede estar vacío")
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
-    @Size(max = 50)
-    @NotNull
+    @Size(min = 3, max = 50, message = "El apellido debe tener entre 3 y 50 caraacteres")
+    @NotNull(message = "El apellido no puede estar vacio")
     @Column(name = "apellido", nullable = false, length = 50)
     private String apellido;
 
-    @Size(max = 100)
-    @NotNull
+    @Email(message = "El email debe ser válido")
+    @NotNull(message = "El email no puede estar vacío")
+    @Size(max = 100, message = "El email no puede tener más de 100 caracteres")
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Size(max = 255)
-    @NotNull
+    @Size(min = 8, message = "La clave debe tener al menos 8 caracteres")
+    @NotNull(message = "La clave no puede estar vacía")
     @Column(name = "clave", nullable = false)
     private String clave;
 
-    @NotNull
+    @NotNull(message = "El perfil no puede ser nulo")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "perfil_id", nullable = false)
     private Perfile perfil;
 
-    @NotNull
+    @NotBlank(message = "El estado no puede estar vacío")
     @ColumnDefault("'PENDIENTE'")
     @Lob
     @Column(name = "estado", nullable = false)

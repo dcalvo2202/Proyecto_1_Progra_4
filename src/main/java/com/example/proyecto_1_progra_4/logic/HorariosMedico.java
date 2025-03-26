@@ -1,6 +1,7 @@
 package com.example.proyecto_1_progra_4.logic;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalTime;
@@ -13,16 +14,16 @@ public class HorariosMedico {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @NotNull
+    @NotBlank(message = "El día no puede estar vacío")
     @Lob
     @Column(name = "dia", nullable = false)
     private String dia;
 
-    @NotNull
+    @NotNull(message = "La hora de inicio no puede ser nula")
     @Column(name = "hora_inicio", nullable = false)
     private LocalTime horaInicio;
 
-    @NotNull
+    @NotNull(message = "La hora final no puede ser nula")
     @Column(name = "hora_final", nullable = false)
     private LocalTime horaFinal;
 
