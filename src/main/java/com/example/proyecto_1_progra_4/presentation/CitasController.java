@@ -3,6 +3,7 @@ package com.example.proyecto_1_progra_4.presentation;
 import com.example.proyecto_1_progra_4.logic.Cita;
 import com.example.proyecto_1_progra_4.logic.Service;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -84,4 +85,10 @@ public class CitasController {
         }
         return ResponseEntity.notFound().build();
     }
+  //  @GetMapping("/medico/{medicoId}/ordenadas")
+   // public ResponseEntity<List<Cita>> listarCitasOrdenadas(@PathVariable Integer medicoId) {
+    //List<Cita> citas = service.listarCitasPorMedicoOrdenadas(medicoId);
+   // return new ResponseEntity<>(citas, HttpStatus.OK);
+   // }
 }
+

@@ -2,13 +2,16 @@ package com.example.proyecto_1_progra_4.presentation;
 
 import com.example.proyecto_1_progra_4.logic.Medico;
 import com.example.proyecto_1_progra_4.logic.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/medicos")
 public class MedicoController {
-
+   @Autowired
     private final Service service;
 
     public MedicoController(Service medicoService) {
@@ -51,4 +54,5 @@ public class MedicoController {
         boolean primeraVez = service.esPrimeraVezMedico(id);
         return ResponseEntity.ok(primeraVez);
     }
+
 }

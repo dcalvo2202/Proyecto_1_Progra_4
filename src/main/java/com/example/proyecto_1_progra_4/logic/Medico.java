@@ -16,6 +16,7 @@ public class Medico {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+
     @NotBlank(message = "El nombre no puede estar vacío")
     @Size(max = 50, message = "El nombre debe tener como máximo 50 caracteres")
     @Column(name = "nombre", nullable = false, length = 50)
@@ -139,4 +140,5 @@ public class Medico {
     public void setRutaFoto(String rutaFoto) {
         this.rutaFoto = rutaFoto;
     }
+
 }
