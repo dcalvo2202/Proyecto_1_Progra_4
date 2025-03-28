@@ -1,6 +1,7 @@
 package com.example.proyecto_1_progra_4.presentation;
 
 import com.example.proyecto_1_progra_4.logic.Cita;
+import com.example.proyecto_1_progra_4.logic.Medico;
 import com.example.proyecto_1_progra_4.logic.Service;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -90,5 +93,25 @@ public class CitasController {
     //List<Cita> citas = service.listarCitasPorMedicoOrdenadas(medicoId);
    // return new ResponseEntity<>(citas, HttpStatus.OK);
    // }
+
+    @GetMapping("/medicos/buscar")
+    public List<Medico> buscarMedicos(@RequestParam String especialidad, @RequestParam String ciudad) {
+        return service.buscarMedicosPorEspecialidadYCiudad(especialidad, ciudad);
+    }
+
+    @GetMapping("/medicos/{medicoId}/disponibilidad")
+    public List<LocalTime> obtenerDisponibilidad(@PathVariable Integer medicoId, @RequestParam LocalDate fecha) {
+        return service.obtenerEspaciosDisponibles(medicoId, fecha);
+    }
+
+    @GetMapping("/medicos/{medicoId}/citas-disponibles")
+    public List<Cita> obtenerCitasDisponibles(@PathVariable Integer medicoId, @RequestParam LocalDate fecha) {
+        return service.obtenerCitasDisponiblesPorMedicoYFecha(medicoId, fecha);
+    }
+
+    @GetMapping("/paciente/{pacienteId}")
+    public List<Cita> obtenerCitasPorPaciente(@PathVariable Integer pacienteId) {
+        return service.obtenerCitasPorPaciente(pacienteId);
+    }
 }
 

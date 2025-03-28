@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
@@ -151,5 +152,67 @@ public class Service {
             }
         }
         return Optional.empty();
+    }
+
+    public List<Medico> buscarMedicosPorEspecialidadYCiudad(String especialidad, String ciudad) {
+        return medicoRepository.findAllByEspecialidadContainingIgnoreCaseAndCiudadContainingIgnoreCase(especialidad, ciudad);
+    }
+
+    public List<LocalTime> obtenerEspaciosDisponibles(Integer medicoId, LocalDate fecha) {
+        Optional<Medico> medicoOptional = medicoRepository.findById(medicoId);
+        if (!medicoOptional.isPresent()) {
+            return new ArrayList<>();
+        }
+        Medico medico = medicoOptional.get();
+        // Obtener los horarios del medico
+        List<HorariosMedico> horarios = horarioRepository.findByMedicoId(medicoId);
+
+        if(horarios.isEmpty()){
+            return new ArrayList<>();
+        }
+
+        // Determinar el día de la semana para la fecha dada
+        String diaSemana = fecha.getDayOfWeek().toString(); 
+        LocalTime horaInicio = null;
+        LocalTime horaFin = null;
+        //Obtener horas de inicio y fin
+        for (HorariosMedico horario : horarios){
+            if (horario.getDia().equals(diaSemana)){
+                horaInicio = horario.getHoraInicio();
+                horaFin = horario.getHoraFinal();
+                break;
+            }
+        }
+
+        if(horaInicio == null || horaFin == null){
+            return new ArrayList<>();
+        }
+
+        //Calcular los espacios disponibles
+        int frecuencia = medico.getFrecuencia();
+        List<LocalTime> espaciosDisponibles = new ArrayList<>();
+        LocalTime tiempoActual = horaInicio;
+        while(tiempoActual.isBefore(horaFin)){
+            // Verificar si existe una cita para este espacio
+            if(!citasRepository.existsByMedicoIdAndFechaAndHora(medicoId, fecha, tiempoActual)){
+                espaciosDisponibles.add(tiempoActual);
+            }
+
+            tiempoActual = tiempoActual.plusMinutes(frecuencia);
+
+        }
+        return espaciosDisponibles;
+    }
+
+    public List<Cita> obtenerCitasDisponiblesPorMedicoYFecha(Integer medicoId, LocalDate fecha) {
+        return citasRepository.findByMedicoIdAndFechaAndEstado(medicoId, fecha, "DISPONIBLE");
+    }
+
+    public List<Cita> obtenerCitasPorPaciente(Integer pacienteId) {
+        return citasRepository.findByPacienteIdOrderByFechaDescHoraDesc(pacienteId);
+    }
+
+    public boolean validarDisponibilidad(Integer medicoId, LocalDate fecha, LocalTime hora) {
+        return !citasRepository.existsByMedicoIdAndFechaAndHora(medicoId, fecha, hora);
     }
 }

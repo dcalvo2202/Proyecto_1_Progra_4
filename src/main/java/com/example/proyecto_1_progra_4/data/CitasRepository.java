@@ -27,5 +27,9 @@ public interface CitasRepository extends CrudRepository<Cita, Integer> {
     boolean existsByMedicoIdAndFechaAndHora(Integer medicoId, LocalDate fecha, LocalTime hora);
 
     boolean existsByMedicoIdAndEstado(Integer medicoId, String estado);
+
+    List<Cita> findByMedicoIdAndFechaAndEstado(Integer medicoId, LocalDate fecha, String estado);
+
+    List<Cita> findByPacienteIdOrderByFechaDescHoraDesc(Integer pacienteId);
 }
 
