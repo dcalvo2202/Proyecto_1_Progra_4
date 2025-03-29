@@ -1,32 +1,24 @@
 package com.example.proyecto_1_progra_4.logic;
 
-import com.example.proyecto_1_progra_4.logic.UsuarioDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-    private final UsuarioDetailsService usuarioDetailsService;
 
-    public SecurityConfig(UsuarioDetailsService usuarioDetailsService) {
-        this.usuarioDetailsService = usuarioDetailsService;
-    }
+    @Autowired
+    private UsuarioDetailsService usuarioDetailsService;
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        return usuarioDetailsService;
-    }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -39,7 +31,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
@@ -47,12 +39,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/registro", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/login", "/registro", "/css/", "/js/","/auth/login").permitAll() // Allow access to /auth/login
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/home", true)  // Ojo. revisa la ruta a donde quieres redirigir
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -60,7 +52,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
-                .csrf(csrf -> csrf.disable()); // Para facilitar desarrollo, desactiva CSRF
+                .csrf(csrf -> csrf.disable());
 
         return http.build();
     }

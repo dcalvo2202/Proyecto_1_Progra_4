@@ -3,50 +3,78 @@ package com.example.proyecto_1_progra_4.presentation;
 import com.example.proyecto_1_progra_4.logic.Medico;
 import com.example.proyecto_1_progra_4.logic.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+import com.example.proyecto_1_progra_4.data.UsuarioRepository;
+import com.example.proyecto_1_progra_4.logic.Usuario;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-@RestController
+import java.util.Optional;
+
+@Controller
 @RequestMapping("/medicos")
 public class MedicoController {
-   @Autowired
-    private final Service service;
 
-    public MedicoController(Service medicoService) {
-        this.service = medicoService;
+    @Autowired
+    private Service service;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @GetMapping("/perfil")
+    public String mostrarPerfil(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer usuarioId = (Integer) session.getAttribute("usuarioId");
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(usuarioId);
+        if (usuarioOptional.isPresent()) {
+            Usuario user = usuarioOptional.get();
+            model.addAttribute("medico", user);
+            return "medico/perfil"; // Nombre de la plantilla Thymeleaf (ej: medico_perfil.html)
+        }
+        return "redirect:/home"; //Si no existe te manda al home
+
     }
 
-    @GetMapping
-    public Iterable<Medico> listarMedicos() {
-        return service.obtenerMedicos();
-    }
+    @PostMapping("/perfil")
+    public String guardarPerfil(@Valid @ModelAttribute Medico medico,
+                                BindingResult result,
+                                Model model,
+                                HttpServletRequest request,
+                                @RequestParam("file") MultipartFile foto) { //Para poder subir la foto
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Medico> obtenerMedico(@PathVariable Integer id) {
-        return service.obtenerMedicoPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+        if (result.hasErrors()) {
+            model.addAttribute("errores", result.getAllErrors()); // Agregar errores al modelo para mostrarlos en la vista
+            return "medico/perfil";
+        }
 
-    @PostMapping
-    public Medico registrarMedico(@RequestBody Medico medico) {
-        return service.guardarMedico(medico);
-    }
+        if (!foto.isEmpty()) {
+            // Guardar la foto en el disco
+            Path directorioImagenes = Paths.get("src//main//resources//static//images");
+            String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 
-    @PutMapping("/{id}/perfil")
-    public ResponseEntity<Medico> actualizarPerfil(@PathVariable Integer id, @RequestBody Medico medicoActualizado) {
-        return service.obtenerMedicoPorId(id)
-                .map(medico -> {
-                    medico.setEspecialidad(medicoActualizado.getEspecialidad());
-                    medico.setCiudad(medicoActualizado.getCiudad());
-                    medico.setClinica(medicoActualizado.getClinica());
-                    medico.setFrecuencia(medicoActualizado.getFrecuencia());
-                    medico.setRutaFoto(medicoActualizado.getRutaFoto());
-                    return ResponseEntity.ok(service.guardarMedico(medico));
-                })
-                .orElse(ResponseEntity.notFound().build());
+            try {
+                byte[] bytesImg = foto.getBytes();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + foto.getOriginalFilename());
+                Files.write(rutaCompleta, bytesImg);
+
+                medico.setRutaFoto(foto.getOriginalFilename());
+            } catch (IOException e) {
+                // Manejar la excepción
+            }
+        }
+
+        service.guardarMedico(medico);
+        return "redirect:/medicos/perfil"; // Redirige de nuevo al perfil
     }
 
     @GetMapping("/{id}/primera-vez")

@@ -7,6 +7,7 @@ import com.example.proyecto_1_progra_4.data.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +26,13 @@ public class Service {
     private final UsuarioRepository usuarioRepository;
 
 
-    public Service (CitasRepository citasRepository, HorarioRepository horarioRepository, MedicoRepository medicoRepository, UsuarioRepository usuarioRepository) {
+    public Service(CitasRepository citasRepository, HorarioRepository horarioRepository, MedicoRepository medicoRepository, UsuarioRepository usuarioRepository) {
         this.citasRepository = citasRepository;
         this.horarioRepository = horarioRepository;
         this.medicoRepository = medicoRepository;
         this.usuarioRepository = usuarioRepository;
     }
+
     // Citas
     public Optional<Cita> obtenerCitaPorId(Integer id) {
         return citasRepository.findById(id);
@@ -128,6 +130,24 @@ public class Service {
         return !citasRepository.existsByMedicoIdAndEstado(medicoId, "PENDIENTE");
     }
 
+    public List<Medico> listarMedicosPendientes() {
+        return medicoRepository.findByUsuarioEstado("PENDIENTE");
+    }
+
+    public Optional<Medico> rechazarMedico(Integer id) {
+        Optional<Medico> medicoOptional = medicoRepository.findById(id);
+        if (medicoOptional.isPresent()) {
+            Medico medico = medicoOptional.get();
+
+            Usuario usuario = usuarioRepository.findById(medico.getId()).orElse(null);
+            if (usuario != null) {
+                usuario.setEstado("RECHAZADO");
+                usuarioRepository.save(usuario);
+            }
+            return medicoOptional;
+        }
+        return Optional.empty();
+    }
     //Usuarios
     public Iterable<Usuario> obtenerUsuarios() {
         return usuarioRepository.findAll();

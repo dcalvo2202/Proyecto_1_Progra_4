@@ -1,13 +1,18 @@
 package com.example.proyecto_1_progra_4.presentation;
 
+// import ch.qos.logback.core.model.Model;
 import com.example.proyecto_1_progra_4.logic.Cita;
 import com.example.proyecto_1_progra_4.logic.Medico;
 import com.example.proyecto_1_progra_4.logic.Service;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/citas")
 public class CitasController {
 
@@ -24,7 +29,7 @@ public class CitasController {
     public CitasController(Service citasService) {
         this.service = citasService;
     }
-
+    
     @GetMapping
     public Iterable<Cita> listarCitas() {
         return service.obtenerCitas();
@@ -113,5 +118,6 @@ public class CitasController {
     public List<Cita> obtenerCitasPorPaciente(@PathVariable Integer pacienteId) {
         return service.obtenerCitasPorPaciente(pacienteId);
     }
+
 }
 

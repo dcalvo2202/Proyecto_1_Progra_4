@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Médicos Pendientes de Aprobación</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/admin/medicos_pendientes.css}">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Médicos Pendientes de Aprobación</h1>
+
+    <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <div th:if="${medicosPendientes.isEmpty()}">
+        <p>No hay médicos pendientes de aprobación.</p>
+    </div>
+    <div th:unless="${medicosPendientes.isEmpty()}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="medico : ${medicosPendientes}">
+                <td th:text="${medico.nombre}"></td>
+                <td th:text="${medico.apellido}"></td>
+                <td th:text="${medico.usuario.email}"></td>
+                <td>
+                    <form th:action="@{/admin/medicos/{id}/aprobar(id=${medico.id})}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-success btn-sm">Aprobar</button>
+                    </form>
+                    <form th:action="@{/admin/medicos/{id}/rechazar(id=${medico.id})}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a th:href="@{/home}" class="btn btn-secondary">Volver al Inicio</a>
+</div>
+</body>
+</html>
