@@ -1,10 +1,12 @@
 package com.example.proyecto_1_progra_4.presentation;
 
 // import ch.qos.logback.core.model.Model;
+import com.example.proyecto_1_progra_4.data.UsuarioRepository;
 import com.example.proyecto_1_progra_4.logic.Cita;
 import com.example.proyecto_1_progra_4.logic.Medico;
 import com.example.proyecto_1_progra_4.service.Service;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,9 +24,12 @@ public class CitasController {
 
     private final Service service;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
     public CitasController(Service citasService) {
         this.service = citasService;
     }
+
     
     @GetMapping
     public Iterable<Cita> listarCitas() {
