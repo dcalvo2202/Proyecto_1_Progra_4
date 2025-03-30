@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Medical Appointments</title>
+    <title>Appointment Confirmation - Medical Appointments</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/custom-theme.css}">
-    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/appointment.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -22,33 +22,40 @@
         </div>
         <nav class="top-navigation">
             <a href="#" th:href="@{/about}">About</a>
+            <a href="#" th:href="@{/history}">History</a>
             <a href="#" th:href="@{/search}">Search</a>
-            <a href="#" th:href="@{/login}" class="active">Login</a>
+            <div class="dropdown">
+                <button class="dropdown-toggle">Sue <i class="fas fa-chevron-down"></i></button>
+                <div class="dropdown-menu">
+                    <a href="#" th:href="@{/profile}">Profile</a>
+                    <a href="#" th:href="@{/logout}">Logout</a>
+                </div>
+            </div>
         </nav>
     </div>
 </header>
 
 <main class="main-content">
-    <div class="login-container">
-        <div class="login-box">
-            <h2>Login</h2>
-            <div class="user-avatar">
-                <img th:src="@{/images/user-avatar.png}" alt="User Avatar">
+    <div class="confirmation-container">
+        <div class="confirmation-card">
+            <div class="doctor-profile">
+                <img th:src="@{/images/doctores.jpeg}" alt="Dr. Juan José Pérez" class="doctor-profile-img">
+                <div class="appointment-doctor-info">
+                    <i class="fas fa-user-md"></i>
+                    <span>Juan José Pérez</span>
+                </div>
+                <div class="appointment-datetime">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>2025-02-19T16:00</span>
+                </div>
+                <div class="appointment-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Alajuela Medical Center</span>
+                </div>
             </div>
-            <form class="login-form" th:action="@{/login}" method="post">
-                <div class="form-group">
-                    <span class="input-icon"><i class="fas fa-user"></i></span>
-                    <input type="text" id="userId" name="userId" placeholder="User ID" required>
-                </div>
-                <div class="form-group">
-                    <span class="input-icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" id="password" name="password" placeholder="User Password" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-login">Log In</button>
-            </form>
-            <div class="register-link">
-                <span>Don't have an account?</span>
-                <a href="#" th:href="@{/register}" class="register-text">Register here</a>
+            <div class="confirmation-actions">
+                <button class="btn btn-primary">Confirm</button>
+                <button class="btn btn-outline">Cancel</button>
             </div>
         </div>
     </div>

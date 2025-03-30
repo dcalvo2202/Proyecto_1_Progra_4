@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public interface MedicoRepository extends CrudRepository<Medico, Integer> {
 
-    Optional<Medico> findByEspecialidadId(Integer especialidadId);
+    Optional<Medico> findByEspecialidad(String especialidadId);
 
     List<Medico> findAllByEspecialidadContainingIgnoreCaseAndCiudadContainingIgnoreCase(String especialidad, String ciudad);
 

@@ -1,0 +1,203 @@
+/* custom-theme.css */
+
+/* Paleta de colores */
+:root {
+    --primary-color: #d7edea;
+    --secondary-color: #74d4cc;
+    --tertiary-color: #c0e7e2;
+    --quaternary-color: #f4fbfb;
+    --quinary-color: #ade5de;
+    --light-gray: #ccded4;
+    --lighter-gray: #ecf6f5;
+    --dark-blue: #0a2655;  /* Color principal para textos importantes y fondos oscuros */
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    color: var(--dark-blue);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilos del header */
+.header {
+    background-color: var(--quaternary-color);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinea a la izquierda */
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.logo-text {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--dark-blue);
+}
+
+/* Estilos de la navegación */
+.top-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Alinea a la derecha */
+}
+
+.top-navigation a {
+    color: var(--dark-blue);
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s ease;
+}
+
+.top-navigation a:hover {
+    color: var(--secondary-color);
+}
+
+.contact-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Alinea a la derecha */
+}
+
+.contact-info i {
+    margin-right: 5px;
+    color: var(--secondary-color);
+}
+
+/* Estilos del main */
+.main-content {
+    padding: 20px 0;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--quaternary-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-box h2 {
+    text-align: center;
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+}
+
+/* Estilos del avatar */
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 20px auto;
+    border: 3px solid var(--primary-color);
+}
+
+.user-avatar img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Estilos del formulario de login */
+.login-form .form-group {
+    margin-bottom: 15px;
+}
+
+.login-form .form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-form .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--light-gray);
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Estilos del pie de página */
+.footer {
+    background-color: var(--dark-blue);
+    color: var(--quaternary-color);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-icons a {
+    color: var(--quaternary-color);
+    margin: 0 10px;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--primary-color);
+}
+
+.copyright {
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+/*Clases propias de login.css, que estaban generando un conflicto*/
+.form-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}

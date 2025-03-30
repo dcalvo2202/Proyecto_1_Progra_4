@@ -1,0 +1,169 @@
+/* Estilos para la página de equipo médico */
+:root {
+    --secondary: #f0f0f0; /* Define el color que desees */
+}
+
+.team-intro {
+    padding: 40px 0;
+    text-align: center;
+}
+
+.section-intro {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+.specialty-filter {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.specialty-filter h3 {
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.doctor-profile-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.doctor-profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.doctor-card-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.doctor-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.doctor-profile-card:hover .doctor-img {
+    transform: scale(1.05);
+}
+
+.doctor-card-content {
+    padding: 20px;
+}
+
+.doctor-card-content h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: var(--primary);
+}
+
+.doctor-specialty {
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.doctor-hospital {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.doctor-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.doctor-experience {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.join-team-section {
+    background-color: var(--secondary);
+    padding: 60px 0;
+    margin-top: 30px;
+}
+
+.join-team-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.join-team-text h2 {
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.join-team-text p {
+    margin-bottom: 30px;
+    color: var(--text-secondary);
+    font-size: 18px;
+}
+
+/* Estilos para la página de perfil del doctor */
+.text-center {
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filter-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .doctors-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

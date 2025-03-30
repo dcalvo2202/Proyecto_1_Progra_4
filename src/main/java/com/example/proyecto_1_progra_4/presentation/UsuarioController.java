@@ -1,16 +1,12 @@
 package com.example.proyecto_1_progra_4.presentation;
 
-import com.example.proyecto_1_progra_4.logic.Service;
 import com.example.proyecto_1_progra_4.logic.Usuario;
-import org.springframework.http.ResponseEntity;
 import com.example.proyecto_1_progra_4.data.UsuarioRepository;
-import com.example.proyecto_1_progra_4.logic.Usuario;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;

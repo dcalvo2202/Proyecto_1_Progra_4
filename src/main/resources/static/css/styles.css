@@ -1,0 +1,118 @@
+/* styles.css - Estilos generales para todo el sitio */
+
+/* Paleta de colores (puedes definirlos aquí o en custom-theme.css) */
+:root {
+    --primary-color: #d7edea;
+    --secondary-color: #74d4cc;
+    --tertiary-color: #c0e7e2;
+    --quaternary-color: #f4fbfb;
+    --quinary-color: #ade5de;
+    --light-gray: #ccded4;
+    --lighter-gray: #ecf6f5;
+    --dark-blue: #0a2655; /* Color principal para textos importantes y fondos oscuros */
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--quaternary-color); /* Fondo general de la página */
+    color: var(--dark-blue);
+}
+
+/* Estilos del header */
+.header {
+    background-color: var(--quaternary-color);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+/*Estilos del contenedor principal*/
+.container{
+    max-width: 1200px !important;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.logo-text {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--dark-blue);
+}
+
+/* Estilos de la navegación */
+.top-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.top-navigation a {
+    color: var(--dark-blue);
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s ease;
+}
+
+.top-navigation a:hover {
+    color: var(--secondary-color);
+}
+
+/* Estilos para información de contacto */
+.contact-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.contact-info i {
+    margin-right: 5px;
+    color: var(--secondary-color);
+}
+
+/* Estilos del main */
+.main-content {
+    padding: 20px 0;
+}
+
+/* Estilos del footer */
+.footer {
+    background-color: var(--dark-blue);
+    color: var(--quaternary-color);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-icons a {
+    color: var(--quaternary-color);
+    margin: 0 10px;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--primary-color);
+}
+
+.copyright {
+    margin-top: 10px;
+    font-size: 0.9em;
+}

@@ -1,7 +1,7 @@
 package com.example.proyecto_1_progra_4.presentation;
 
 import com.example.proyecto_1_progra_4.logic.Medico;
-import com.example.proyecto_1_progra_4.logic.Service;
+import com.example.proyecto_1_progra_4.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

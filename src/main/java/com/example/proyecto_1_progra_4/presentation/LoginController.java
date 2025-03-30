@@ -1,10 +1,9 @@
 package com.example.proyecto_1_progra_4.presentation;
 
 import com.example.proyecto_1_progra_4.logic.LoginRequest;
-import com.example.proyecto_1_progra_4.logic.Service;
+import com.example.proyecto_1_progra_4.service.Service;
 import com.example.proyecto_1_progra_4.logic.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

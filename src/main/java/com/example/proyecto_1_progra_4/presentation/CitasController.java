@@ -3,16 +3,12 @@ package com.example.proyecto_1_progra_4.presentation;
 // import ch.qos.logback.core.model.Model;
 import com.example.proyecto_1_progra_4.logic.Cita;
 import com.example.proyecto_1_progra_4.logic.Medico;
-import com.example.proyecto_1_progra_4.logic.Service;
+import com.example.proyecto_1_progra_4.service.Service;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

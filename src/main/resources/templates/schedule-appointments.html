@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Medical Appointments</title>
+    <title>Schedule Appointment - Medical Appointments</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/custom-theme.css}">
-    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/appointment.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -23,33 +23,49 @@
         <nav class="top-navigation">
             <a href="#" th:href="@{/about}">About</a>
             <a href="#" th:href="@{/search}">Search</a>
-            <a href="#" th:href="@{/login}" class="active">Login</a>
+            <a href="#" th:href="@{/login}">Login</a>
         </nav>
     </div>
 </header>
 
 <main class="main-content">
-    <div class="login-container">
-        <div class="login-box">
-            <h2>Login</h2>
-            <div class="user-avatar">
-                <img th:src="@{/images/user-avatar.png}" alt="User Avatar">
-            </div>
-            <form class="login-form" th:action="@{/login}" method="post">
-                <div class="form-group">
-                    <span class="input-icon"><i class="fas fa-user"></i></span>
-                    <input type="text" id="userId" name="userId" placeholder="User ID" required>
+    <div class="container">
+        <div class="schedule-header">
+            <div class="doctor-stripe">
+                <div class="doctor-photo">
+                    <img th:src="@{/images/retrato-perfil-doc.jpeg}" alt="Dr. Bruce Banner" class="doctor-img">
                 </div>
-                <div class="form-group">
-                    <span class="input-icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" id="password" name="password" placeholder="User Password" required>
+                <div class="doctor-info">
+                    <h2>Bruce Banner <span class="doctor-id">54000</span></h2>
+                    <div class="doctor-specialty">Dermatology</div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-login">Log In</button>
-            </form>
-            <div class="register-link">
-                <span>Don't have an account?</span>
-                <a href="#" th:href="@{/register}" class="register-text">Register here</a>
             </div>
+            <div class="hospital-info">
+                <span>Cima Hospital</span>
+                <span class="location-separator">»</span>
+                <span>San José</span>
+            </div>
+        </div>
+
+        <div class="appointment-dates">
+            <div class="date-column">
+                <div class="date-header">25/02/2025</div>
+                <div class="time-slots">
+                    <button class="time-slot">10:00</button>
+                    <button class="time-slot">10:30</button>
+                </div>
+            </div>
+            <div class="date-column">
+                <div class="date-header">26/02/2025</div>
+                <div class="time-slots">
+                    <button class="time-slot">10:00</button>
+                    <button class="time-slot">10:30</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="#" class="btn btn-outline btn-back">Go Back</a>
         </div>
     </div>
 </main>

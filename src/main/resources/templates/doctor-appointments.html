@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointments - Medical Appointments</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/custom-theme.css}">
+    <link rel="stylesheet" th:href="@{/css/appointment.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+<header class="header light-header">
+    <div class="container">
+        <div class="logo-container">
+            <img th:src="@{/images/logo_header#2.png}" alt="Medical Appointments Logo" class="logo-img">
+            <span class="logo-text">Medical Appointments</span>
+        </div>
+        <div class="contact-info">
+            <i class="fas fa-phone-alt"></i>
+            <span>+506 5467 0937</span>
+        </div>
+        <nav class="top-navigation">
+            <a href="#" th:href="@{/about}">About</a>
+            <a href="#" th:href="@{/appointments}" class="active">Appointments</a>
+            <a href="#" th:href="@{/profile}">Profile</a>
+            <div class="dropdown">
+                <button class="dropdown-toggle">Balance <i class="fas fa-chevron-down"></i></button>
+                <div class="dropdown-menu">
+                    <a href="#" th:href="@{/invoices}">Invoices</a>
+                    <a href="#" th:href="@{/payments}">Payments</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="container">
+        <section class="doctor-header">
+            <h1>Doctor - <span class="text-primary">Bruce Banner</span> - appointments</h1>
+        </section>
+
+        <section class="appointment-filters">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="status">Status</label>
+                    <select id="status" class="form-select">
+                        <option value="all">All</option>
+                        <option value="pending">Pending</option>
+                        <option value="attended">Attended</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="patient">Patient</label>
+                    <input type="text" id="patient" class="form-input">
+                </div>
+                <button class="btn btn-primary btn-search">Search</button>
+            </div>
+        </section>
+
+        <section class="appointments-list">
+            <div class="appointment-item">
+                <div class="patient-info">
+                    <img th:src="@{/images/patient-avatar.png}" alt="George Lucas" class="patient-thumbnail">
+                    <div class="patient-name">George Lucas</div>
+                </div>
+                <div class="appointment-date">18/02/2025 10:00</div>
+                <div class="appointment-status pending">Pending</div>
+                <div class="appointment-actions">
+                    <button class="btn-action btn-attend"><i class="fas fa-check"></i>Attend</button>
+                    <button class="btn-action btn-cancel"><i class="fas fa-times"></i>Cancel</button>
+                </div>
+            </div>
+
+            <div class="appointment-item">
+                <div class="patient-info">
+                    <img th:src="@{/images/patient-avatar.png}" alt="Stan Lee" class="patient-thumbnail">
+                    <div class="patient-name">Stan Lee</div>
+                </div>
+                <div class="appointment-date">12/02/2025 15:30</div>
+                <div class="appointment-status attended">Attended</div>
+                <a href="#" class="btn-view-details">
+                    <i class="fas fa-eye"></i>View
+                </a>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <p class="company-name">Total Soft Inc.</p>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright" th:text="${'©' + #dates.format(#dates.createNow(), 'yyyy') + ' TS Inc.'}">©2023 TS Inc.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
+

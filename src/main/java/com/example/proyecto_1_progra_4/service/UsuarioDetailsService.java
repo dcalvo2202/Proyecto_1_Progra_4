@@ -1,6 +1,7 @@
-package com.example.proyecto_1_progra_4.logic;
+package com.example.proyecto_1_progra_4.service;
 
 import com.example.proyecto_1_progra_4.data.UsuarioRepository;
+import com.example.proyecto_1_progra_4.logic.Usuario;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -49,6 +49,9 @@ public class Usuario {
     @Column(name = "estado", nullable = false)
     private String estado;
 
+
+
+
     public Integer getId() {
         return id;
     }

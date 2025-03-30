@@ -14,6 +14,11 @@ public class HorariosMedico {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @NotBlank(message = "El médico no puede estar vacío")
+    @Column(name = "medico_id")
+    private Integer medicoId;
+
+
     @NotBlank(message = "El día no puede estar vacío")
     @Lob
     @Column(name = "dia", nullable = false)

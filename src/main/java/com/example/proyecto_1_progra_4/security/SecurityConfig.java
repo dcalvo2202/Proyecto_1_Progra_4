@@ -1,5 +1,6 @@
-package com.example.proyecto_1_progra_4.logic;
+package com.example.proyecto_1_progra_4.security;
 
+import com.example.proyecto_1_progra_4.service.UsuarioDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

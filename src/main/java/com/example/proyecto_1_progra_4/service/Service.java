@@ -1,13 +1,16 @@
-package com.example.proyecto_1_progra_4.logic;
+package com.example.proyecto_1_progra_4.service;
 
 import com.example.proyecto_1_progra_4.data.CitasRepository;
 import com.example.proyecto_1_progra_4.data.HorarioRepository;
 import com.example.proyecto_1_progra_4.data.MedicoRepository;
 import com.example.proyecto_1_progra_4.data.UsuarioRepository;
+import com.example.proyecto_1_progra_4.logic.Cita;
+import com.example.proyecto_1_progra_4.logic.HorariosMedico;
+import com.example.proyecto_1_progra_4.logic.Medico;
+import com.example.proyecto_1_progra_4.logic.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +24,7 @@ public class Service {
 
     @Autowired
     private final CitasRepository citasRepository;
-    private HorarioRepository horarioRepository;
+    private final HorarioRepository horarioRepository;
     private final MedicoRepository medicoRepository;
     private final UsuarioRepository usuarioRepository;
 
@@ -77,7 +80,7 @@ public class Service {
     }
 
     public List<HorariosMedico> obtenerHorariosPorDiaSemana(String diaSemana) {
-        return horarioRepository.findByDiaSemana(diaSemana);
+        return horarioRepository.findByDia(diaSemana);
     }
 
     public HorariosMedico guardarHorario(HorariosMedico horario) {

@@ -1,7 +1,7 @@
 package com.example.proyecto_1_progra_4.presentation;
 
 import com.example.proyecto_1_progra_4.logic.HorariosMedico;
-import com.example.proyecto_1_progra_4.logic.Service;
+import com.example.proyecto_1_progra_4.service.Service;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -35,12 +35,12 @@ public class HorarioController {
         return service.obtenerHorariosPorDiaSemana(diaSemana);
     }
 
-    @PostMapping
-    public HorariosMedico crearHorario(@RequestBody HorariosMedico horario) {
-        return service.guardarHorario(horario);
-    }
+//    @PostMapping
+//    public HorariosMedico crearHorario(@RequestBody HorariosMedico horario) {
+//        return service.guardarHorario(horario);
+//    }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<?> crearHorario(@Valid @RequestBody HorariosMedico horario, BindingResult result) {
         if (result.hasErrors()) {
             List<String> errores = result.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList());
@@ -49,7 +49,7 @@ public class HorarioController {
         return ResponseEntity.ok(service.guardarHorario(horario));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void eliminarHorario(@PathVariable Integer id) {
         service.eliminarHorario(id);
     }

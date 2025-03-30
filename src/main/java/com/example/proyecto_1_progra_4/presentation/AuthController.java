@@ -1,7 +1,7 @@
 package com.example.proyecto_1_progra_4.presentation;
 
 import com.example.proyecto_1_progra_4.data.UsuarioRepository;
-import com.example.proyecto_1_progra_4.logic.Service;
+import com.example.proyecto_1_progra_4.service.Service;
 import com.example.proyecto_1_progra_4.logic.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
