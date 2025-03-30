@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Appointments - Login</title>
+    <link rel="stylesheet" th:href="@{static/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="logo-container">
+            <img th:src="@{/images/medical-logo.png}" alt="Medical Appointments Logo" class="logo-img">
+            <span class="logo-text">Medical Appointments</span>
+        </div>
+        <div class="contact-info">
+            <i class="fas fa-phone-alt"></i>
+            <span>+506 5467 0937</span>
+        </div>
+        <nav class="navigation">
+            <ul>
+                <li><a href="#" th:href="@{/about}">About...</a></li>
+                <li><a href="#" th:href="@{/search}">Search</a></li>
+                <li><a href="#" th:href="@{/login}" class="active">Login</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="login-container">
+        <div class="login-header">
+            <h2>Login</h2>
+        </div>
+        <div class="login-body">
+            <div class="avatar-container">
+                <img th:src="@{/images/user-avatar.png}" alt="User Avatar" class="avatar">
+            </div>
+            <form th:action="@{/login}" method="post" class="login-form">
+                <div class="form-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="userId" name="userId" placeholder="User Id" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" name="password" placeholder="User Password" required>
+                </div>
+                <button type="submit" class="login-btn">Log in</button>
+            </form>
+            <div class="register-link">
+                <p>Don't have an account? <a href="#" th:href="@{/register}" class="register-btn">Register here</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <p class="company-name">Total Soft Inc.</p>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright" th:text="${'©' + #dates.format(#dates.createNow(), 'yyyy') + ' Tot. Inc.'}">©2019 Tot. Inc.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
