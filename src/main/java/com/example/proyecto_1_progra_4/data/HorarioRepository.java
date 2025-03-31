@@ -9,14 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
-//@Repository
-//@Transactional
-//public interface HorarioRepository extends JpaRepository<HorariosMedico, Integer> {
-//
-//}
-
-
 @Repository
 public interface HorarioRepository extends CrudRepository<HorariosMedico, Integer> {
     List<HorariosMedico> findByDia(String diaSemana);

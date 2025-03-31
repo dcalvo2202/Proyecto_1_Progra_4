@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -133,10 +131,6 @@ public class Service {
         return !citasRepository.existsByMedicoIdAndEstado(medicoId, "PENDIENTE");
     }
 
-    public List<Medico> listarMedicosPendientes() {
-        return medicoRepository.findByUsuarioEstado("PENDIENTE");
-    }
-
     public Optional<Medico> rechazarMedico(Integer id) {
         Optional<Medico> medicoOptional = medicoRepository.findById(id);
         if (medicoOptional.isPresent()) {
@@ -150,6 +144,21 @@ public class Service {
             return medicoOptional;
         }
         return Optional.empty();
+    }
+
+    public Map<LocalDate, List<LocalTime>> obtenerHorarioExtendidoMedico(Integer medicoId, int dias) {
+        Map<LocalDate, List<LocalTime>> agenda = new LinkedHashMap<>();
+        LocalDate hoy = LocalDate.now();
+
+        for (int i = 0; i < dias; i++) {
+            LocalDate fecha = hoy.plusDays(i);
+            List<LocalTime> disponibles = obtenerEspaciosDisponibles(medicoId, fecha);
+            if (!disponibles.isEmpty()) {
+                agenda.put(fecha, disponibles);
+            }
+        }
+
+        return agenda;
     }
     //Usuarios
     public Iterable<Usuario> obtenerUsuarios() {

@@ -18,10 +18,6 @@ public interface CitasRepository extends CrudRepository<Cita, Integer> {
 
     List<Cita> findByMedicoIdAndEstadoAndPacienteNombreContainingIgnoreCaseOrderByFechaDescHoraDesc(Integer medicoId, String estado, String nombrePaciente);
 
-    List<Cita> findByMedicoIdOrderByFechaAscHoraAsc(Integer medicoId);
-
-    List<Cita> findByMedicoIdAndFecha(Integer medicoId, LocalDate fecha);
-
     boolean existsByMedicoId(Integer medicoId);
 
     boolean existsByMedicoIdAndFechaAndHora(Integer medicoId, LocalDate fecha, LocalTime hora);

@@ -171,4 +171,8 @@ public class Medico {
     public void setResena(String resena) {
         this.resena = resena;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
 }

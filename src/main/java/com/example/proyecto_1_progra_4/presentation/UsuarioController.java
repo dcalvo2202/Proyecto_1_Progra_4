@@ -46,7 +46,7 @@ public class UsuarioController {
         String login = "";
 
         if (principal instanceof UserDetails) {
-            login = ((UserDetails) principal).getUsername(); // En tu caso el ID puede actuar como "username"
+            login = ((UserDetails) principal).getUsername();
         }
 
         if (session.getAttribute("login") == null) {

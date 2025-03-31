@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -118,6 +119,13 @@ public class CitasController {
     @GetMapping("/paciente/{pacienteId}")
     public List<Cita> obtenerCitasPorPaciente(@PathVariable Integer pacienteId) {
         return service.obtenerCitasPorPaciente(pacienteId);
+    }
+
+    @GetMapping("/medicos/{medicoId}/agenda")
+    public Map<LocalDate, List<LocalTime>> verAgendaExtendida(
+            @PathVariable Integer medicoId,
+            @RequestParam(defaultValue = "7") int dias) {
+        return service.obtenerHorarioExtendidoMedico(medicoId, dias);
     }
 
 }

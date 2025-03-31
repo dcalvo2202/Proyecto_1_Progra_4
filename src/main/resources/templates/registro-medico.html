@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro Médico</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="form-container">
+    <h2>Registro de Médico</h2>
+    <form th:action="@{/medicos/registro}" th:object="${medico}" method="post">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" th:field="*{usuario.nombre}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" th:field="*{usuario.apellido}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Correo</label>
+            <input type="email" id="email" th:field="*{usuario.email}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="clave">Contraseña</label>
+            <input type="password" id="clave" th:field="*{usuario.clave}" required>
+        </div>
+
+        <input type="hidden" name="perfilId" value="2"/>
+
+        <button type="submit" class="btn btn-primary">Registrarme</button>
+        <a th:href="@{/login}" class="btn btn-secondary">Volver</a>
+    </form>
+</div>
+</body>
+</html>
