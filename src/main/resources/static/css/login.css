@@ -142,3 +142,8 @@
 .register-text:hover {
     text-decoration: underline;
 }
+.logo-img {
+    width: 150px;
+    height: auto;
+    vertical-align: middle;
+}

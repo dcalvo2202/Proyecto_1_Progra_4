@@ -14,8 +14,6 @@ public class Medico {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    // ... campos existentes ...
-
     @NotBlank(message = "El nombre no puede estar vacío")
     @Size(max = 50, message = "El nombre debe tener como máximo 50 caracteres")
     @Column(name = "nombre", nullable = false, length = 50)
@@ -46,6 +44,7 @@ public class Medico {
     @ColumnDefault("30")
     @Column(name = "frecuencia", nullable = false)
     private Integer frecuencia;
+
     //Nuevo Código
     @NotNull(message = "El costo no puede ser nulo")
     @Column(name = "costo", nullable = false)

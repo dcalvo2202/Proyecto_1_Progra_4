@@ -13,7 +13,7 @@
 <header class="header light-header">
     <div class="container">
         <div class="logo-container">
-            <img th:src="@{/images/logo_header#2.png}" alt="Medical Appointments Logo" class="logo-img">
+            <img th:src="@{/images/logo_header.png}" alt="Medical Appointments Logo" class="logo-img">
             <span class="logo-text">Medical Appointments</span>
         </div>
         <div class="contact-info">
@@ -33,22 +33,23 @@
         <div class="login-box">
             <h2>Login</h2>
             <div class="user-avatar">
-                <img th:src="@{/images/user-avatar.png}" alt="User Avatar">
+                <img th:src="@{/images/avatar.png}" alt="User Avatar">
             </div>
             <form class="login-form" th:action="@{/login}" method="post">
                 <div class="form-group">
                     <span class="input-icon"><i class="fas fa-user"></i></span>
-                    <input type="text" id="userId" name="userId" placeholder="User ID" required>
+                    <input type="text" id="userId" name="userId" placeholder="    User ID" required>
                 </div>
                 <div class="form-group">
                     <span class="input-icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" id="password" name="password" placeholder="User Password" required>
+                    <input type="password" id="password" name="password" placeholder="    User Password" required>
                 </div>
                 <button type="submit" class="btn btn-primary btn-login">Log In</button>
             </form>
             <div class="register-link">
                 <span>Don't have an account?</span>
-                <a href="#" th:href="@{/register}" class="register-text">Register here</a>
+                <a href="#" th:href="@{/registro-paciente}" class="register-text">Registrar paciente aqui</a>
+                <a href="#" th:href="@{/registro-medico}" class="register-text">Registrar medico aqui</a>
             </div>
         </div>
     </div>

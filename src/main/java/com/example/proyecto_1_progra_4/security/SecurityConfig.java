@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import com.example.proyecto_1_progra_4.service.Service;
 
 @Configuration
 public class SecurityConfig {
@@ -22,6 +23,9 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Autowired
+    private Service service;
 
     @Bean
     public DaoAuthenticationProvider authProvider() {
@@ -41,7 +45,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/", "/login", "/registro", "/auth/**", "/search/**").permitAll()
+                        .requestMatchers("/", "/login", "/registro-paciente",
+                                "/registro-medico", "/auth/**", "/search/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/medicos/**").hasRole("MEDICO")
                         .requestMatchers("/citas/paciente/**", "/citas/confirmacion", "/patient-history", "/schedule-appointments").hasRole("PACIENTE")
