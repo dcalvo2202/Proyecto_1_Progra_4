@@ -1,6 +1,7 @@
 package com.example.proyecto_1_progra_4.presentation;
 
 import com.example.proyecto_1_progra_4.logic.Medico;
+import com.example.proyecto_1_progra_4.logic.Usuario;
 import com.example.proyecto_1_progra_4.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import com.example.proyecto_1_progra_4.data.UsuarioRepository;
-import com.example.proyecto_1_progra_4.logic.Usuario;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;

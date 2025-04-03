@@ -1,11 +1,11 @@
 package com.example.proyecto_1_progra_4.logic;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "medicos")
@@ -14,89 +14,62 @@ public class Medico {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @NotBlank(message = "El nombre no puede estar vacío")
-    @Size(max = 50, message = "El nombre debe tener como máximo 50 caracteres")
-    @Column(name = "nombre", nullable = false, length = 50)
-    private String nombre;
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "id", nullable = false)
+    private Usuario usuario;
 
-    @NotBlank(message = "El apellido no puede estar vacío")
-    @Size(max = 50, message = "El apellido debe tener como máximo 50 caracteres")
-    @Column(name = "apellido", nullable = false, length = 50)
-    private String apellido;
-
-    @NotBlank(message = "La especialidad no puede estar vacía")
-    @Size(max = 50, message = "La especialidad debe tener como máximo 50 caracteres")
+    @Size(max = 50)
+    @NotNull
     @Column(name = "especialidad", nullable = false, length = 50)
     private String especialidad;
 
-    @NotBlank(message = "La ciudad no puede estar vacía")
-    @Size(max = 20, message = "La ciudad debe tener como máximo 20 caracteres")
+    @Size(max = 20)
+    @NotNull
     @Column(name = "ciudad", nullable = false, length = 20)
     private String ciudad;
 
-    @NotBlank(message = "La clínica no puede estar vacía")
-    @Size(max = 50, message = "La clínica debe tener como máximo 50 caracteres")
+    @Size(max = 50)
+    @NotNull
     @Column(name = "clinica", nullable = false, length = 50)
     private String clinica;
 
-    @NotNull(message = "La frecuencia no puede ser nula")
-    @Min(value = 5, message = "La frecuencia debe ser al menos 5")
+    @NotNull
     @ColumnDefault("30")
     @Column(name = "frecuencia", nullable = false)
     private Integer frecuencia;
 
-    //Nuevo Código
-    @NotNull(message = "El costo no puede ser nulo")
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "id_horario", nullable = false)
+    private HorariosMedico idHorario;
+
+    @NotNull
+    @ColumnDefault("'PENDIENTE'")
+    @Lob
+    @Column(name = "estado", nullable = false)
+    private String estado;
+
+    @NotNull
     @Column(name = "costo", nullable = false)
-    private double costo;
+    private Double costo;
 
-    @NotBlank(message = "La localidad no puede estar vacía")
-    @Size(max = 100, message = "La localidad debe tener como máximo 100 caracteres")
-    @Column(name = "localidad", nullable = false, length = 100)
-    private String localidad;
-
-    @Lob  // para textos largos
-    @Column(name = "horario_semanal")
-    private String horarioSemanal;
-
-    @Size(max = 255)
-    @Column(name = "ruta_foto")
-    private String rutaFoto;
-
-    @Lob // para textos largos
-    @Column(name = "resena")
+    @Size(max = 100)
+    @Column(name = "resena", length = 100)
     private String resena;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional =false)
-    @JoinColumn (name ="id", insertable = false, updatable = false)
-    private Usuario usuario;
 
     public Integer getId() {
         return id;
-    }
-
-    public void setUsuario(Usuario usuario){
-        this.usuario = usuario;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getEspecialidad() {
@@ -131,36 +104,28 @@ public class Medico {
         this.frecuencia = frecuencia;
     }
 
-    public double getCosto() {
+    public HorariosMedico getIdHorario() {
+        return idHorario;
+    }
+
+    public void setIdHorario(HorariosMedico idHorario) {
+        this.idHorario = idHorario;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Double getCosto() {
         return costo;
     }
 
-    public void setCosto(double costo) {
+    public void setCosto(Double costo) {
         this.costo = costo;
-    }
-
-    public String getLocalidad() {
-        return localidad;
-    }
-
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
-    }
-
-    public String getHorarioSemanal() {
-        return horarioSemanal;
-    }
-
-    public void setHorarioSemanal(String horarioSemanal) {
-        this.horarioSemanal = horarioSemanal;
-    }
-
-    public String getRutaFoto() {
-        return rutaFoto;
-    }
-
-    public void setRutaFoto(String rutaFoto) {
-        this.rutaFoto = rutaFoto;
     }
 
     public String getResena() {

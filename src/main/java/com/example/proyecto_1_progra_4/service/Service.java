@@ -104,7 +104,7 @@ public class Service {
 
     @Transactional
     public Medico registrarMedico(Usuario usuario, Medico medico) {
-        usuario.setEstado("PENDIENTE");
+        medico.setEstado("PENDIENTE");
         Usuario usuarioGuardado = usuarioRepository.save(usuario);
         medico.setId(usuarioGuardado.getId());
         medico.setUsuario(usuarioGuardado);
@@ -118,7 +118,7 @@ public class Service {
 
             Usuario usuario = usuarioRepository.findById(medico.getId()).orElse(null);
             if (usuario != null) {
-                usuario.setEstado("APROBADO");
+                medico.setEstado("APROBADO");
                 usuarioRepository.save(usuario);
             }
 
@@ -138,7 +138,7 @@ public class Service {
 
             Usuario usuario = usuarioRepository.findById(medico.getId()).orElse(null);
             if (usuario != null) {
-                usuario.setEstado("RECHAZADO");
+                medico.setEstado("RECHAZADO");
                 usuarioRepository.save(usuario);
             }
             return medicoOptional;
@@ -179,7 +179,7 @@ public class Service {
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            if (passwordEncoder.matches(clave, usuario.getClave()) && usuario.getEstado().equals("APROBADO")) {
+            if (passwordEncoder.matches(clave, usuario.getClave())) {
                 return Optional.of(usuario);
             }
         }

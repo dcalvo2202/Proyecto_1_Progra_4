@@ -3,8 +3,8 @@ package com.example.proyecto_1_progra_4.presentation;
 import com.example.proyecto_1_progra_4.data.UsuarioRepository;
 import com.example.proyecto_1_progra_4.logic.Medico;
 import com.example.proyecto_1_progra_4.logic.Perfile;
-import com.example.proyecto_1_progra_4.service.Service;
 import com.example.proyecto_1_progra_4.logic.Usuario;
+import com.example.proyecto_1_progra_4.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -85,7 +84,6 @@ public class AuthController {
         usuario.setClave(passwordEncoder.encode(usuario.getClave()));
         usuario.setPerfil(new Perfile());
         usuario.getPerfil().setId(3); // Asume que 3 = paciente
-        usuario.setEstado("APROBADO"); // Paciente entra aprobado directamente
         service.guardarUsuario(usuario);
         return "redirect:/login";
     }
